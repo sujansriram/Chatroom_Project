@@ -7,7 +7,7 @@ import jakarta.persistence.*;
 @Table(name = "messages")
 public class Message {
 
-//    PROPERTIES
+    //    PROPERTIES
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column

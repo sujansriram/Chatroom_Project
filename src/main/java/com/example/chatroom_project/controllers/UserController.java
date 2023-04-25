@@ -39,9 +39,14 @@ public class UserController {
         return new ResponseEntity<>(String.format("user of id %s has been deleted", id), HttpStatus.OK);
     }
 
-    @PatchMapping(value = "/{id}")
+    @PatchMapping(value = "/email/{id}")
     public ResponseEntity<User> changeEmail(@PathVariable Long id, @RequestBody String email){
         return new ResponseEntity<>(userService.updateUserEmail(email, id), HttpStatus.OK);
+    }
+
+    @PatchMapping(value = "/name/{id}")
+    public ResponseEntity<User> changeName(@PathVariable Long id, @RequestBody String name){
+        return new ResponseEntity<>(userService.updateUserName(name, id), HttpStatus.OK);
     }
 
 

@@ -32,9 +32,16 @@ public class UserService {
         userRepository.deleteById(id);
     }
 
-    public User updateUserEmail(String email, Long userId){
+    public User updateUserEmail(String email, Long userId) {
         User user = userRepository.findById(userId).get();
         user.setEmail(email);
         return userRepository.save(user);
     }
+
+    public User updateUserName(String name, Long userId) {
+        User user = userRepository.findById(userId).get();
+        user.setName(name);
+        return userRepository.save(user);
+    }
+
 }

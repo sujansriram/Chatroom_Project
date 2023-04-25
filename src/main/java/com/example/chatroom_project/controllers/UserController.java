@@ -36,9 +36,9 @@ public class UserController {
     }
 
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<String> deleteUser(@PathVariable Long id){
+    public ResponseEntity<Long> deleteUser(@PathVariable Long id){
         userService.deleteUser(id);
-        return new ResponseEntity<>(String.format("user of id %s has been deleted", id), HttpStatus.OK);
+        return new ResponseEntity<>(id, HttpStatus.OK);
     }
 
     @PatchMapping(value = "/email/{id}")
@@ -52,16 +52,10 @@ public class UserController {
     }
 
     @PatchMapping(value = "/message/{userId}")
-    public ResponseEntity<Message> sendMessage(@PathVariable Long userId, @RequestBody Long chatroomId,
+    public ResponseEntity<Message> sendMessage(@PathVariable Long userId, @RequestParam Long chatroomId,
                                                @RequestBody String inputMessage){
         return new ResponseEntity<>(userService.sendMessage(inputMessage, userId, chatroomId), HttpStatus.OK);
     }
-
-
-
-
-//
-
 
 
 }

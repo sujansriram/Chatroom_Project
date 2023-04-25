@@ -2,6 +2,7 @@ package com.example.chatroom_project.controllers;
 
 
 import com.example.chatroom_project.models.Chatroom;
+import com.example.chatroom_project.models.Message;
 import com.example.chatroom_project.models.User;
 import com.example.chatroom_project.repositories.ChatroomRepository;
 import com.example.chatroom_project.services.ChatroomService;
@@ -39,25 +40,14 @@ public class ChatroomController {
     }
 
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<String> deleteChatroom(@PathVariable Long id){
+    public ResponseEntity<Long> deleteChatroom(@PathVariable Long id){
         chatroomService.deleteChatroom(id);
-        return new ResponseEntity<>(String.format("chatroom of id %s has been deleted", id), HttpStatus.OK);
+        return new ResponseEntity<>(id, HttpStatus.OK);
     }
 
     @PatchMapping(value = "/addUser/{id}")
-    public ResponseEntity<String> addUserToChatroom(@PathVariable Long id, @RequestBody Long userId){
-        chatroomService.addUserToChatroom(userId, id);
-        return new ResponseEntity<>(String.format("user of id %s has been added to chatroom of id %s", userId, id), HttpStatus.OK);
+    public ResponseEntity<Message> addUserToChatroom(@PathVariable Long id, @RequestBody Long userId){
+        return new ResponseEntity<>(chatroomService.addUserToChatroom(userId, id), HttpStatus.OK);
     }
-
-//    @PatchMapping(value = "/removeUser/{id}")
-//    public ResponseEntity<String> removeUserFromChatroom(@PathVariable Long id, @RequestBody Long userId){
-//        chatroomService.removeUserFromChatroom(userId, id);
-//        return new ResponseEntity<>(String.format("user of id %s has been removed from chatroom of id %s", userId, id), HttpStatus.OK);
-//    }
-
-
-
-
 
 }

@@ -41,12 +41,12 @@ public class ChatroomService {
         chatroomRepository.deleteById(id);
     }
 
-    public void addUserToChatroom(Long userId, Long chatroomId) {
+    public Message addUserToChatroom(Long userId, Long chatroomId) {
         MessageDTO addMessage = new MessageDTO("user has been added", chatroomId, userId);
         User user = userRepository.findById(userId).get();
         Chatroom chatroom = chatroomRepository.findById(chatroomId).get();
         Message message = new Message("user has been added", user, chatroom);
-        messageRepository.save(message);
+        return messageRepository.save(message);
     }
 //
 //    public void removeUserFromChatroom(Long userId, Long chatroomId) {

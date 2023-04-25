@@ -1,5 +1,8 @@
 package com.example.chatroom_project.controllers;
 
+import com.example.chatroom_project.models.Chatroom;
+import com.example.chatroom_project.models.Message;
+import com.example.chatroom_project.models.MessageDTO;
 import com.example.chatroom_project.models.User;
 import com.example.chatroom_project.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,8 +51,16 @@ public class UserController {
         return new ResponseEntity<>(userService.updateUserName(name, id), HttpStatus.OK);
     }
 
-    @PatchMapping(value = "/message/{id}")
+    @PatchMapping(value = "/message/{userId}")
+    public ResponseEntity<Message> sendMessage(@PathVariable Long userId, @RequestBody Long chatroomId,
+                                               @RequestBody String inputMessage){
+        return new ResponseEntity<>(userService.sendMessage(inputMessage, userId, chatroomId), HttpStatus.OK);
+    }
 
+
+
+
+//
 
 
 

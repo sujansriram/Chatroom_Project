@@ -29,8 +29,7 @@ public class User {
         this.email = email;
         this.messages = new ArrayList<>();
     }
-
-
+    
 //    Default constructor
     public User(){
 

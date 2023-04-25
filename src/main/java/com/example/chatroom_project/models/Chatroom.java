@@ -64,6 +64,10 @@ public class Chatroom {
     public void setMessages(List<Message> messages) {
         this.messages = messages;
     }
+
+    public void addMessage(Message message){
+        this.messages.add(message);
+    }
 //
 //    public List<User> getUsers() {
 //        return users;

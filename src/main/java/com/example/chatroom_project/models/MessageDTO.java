@@ -2,7 +2,7 @@ package com.example.chatroom_project.models;
 
 import java.time.LocalTime;
 
-public class MessageDTO {//POJO
+public class MessageDTO {
 
 //    PROPERTIES
 

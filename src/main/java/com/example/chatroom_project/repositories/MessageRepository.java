@@ -1,4 +1,7 @@
 package com.example.chatroom_project.repositories;
 
-public interface MessageRepository {
+import com.example.chatroom_project.models.Message;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface MessageRepository extends JpaRepository<Message, Long> {
 }

@@ -40,15 +40,6 @@ public class Message {
 
     }
 
-
-//         METHODS
-    public void getUserIdByChatroomId(Long chatroomId){
-        if (Long chatroomId = this.chatroomId) {
-            return this.userId;
-        }
-    }
-
-
 //    GETTERS AND SETTERS
 
     public Long getId() {

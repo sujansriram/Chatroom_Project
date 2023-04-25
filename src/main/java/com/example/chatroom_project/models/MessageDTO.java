@@ -26,6 +26,7 @@ public class MessageDTO {//POJO
 
     }
 
+
 //    GETTERS AND SETTERS
 
     public String getMessage() {
@@ -59,4 +60,5 @@ public class MessageDTO {//POJO
     public void setUserId(Long userId) {
         this.userId = userId;
     }
+
 }

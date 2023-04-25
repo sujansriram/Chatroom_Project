@@ -48,7 +48,12 @@ public class ChatroomService {
         Message message = new Message("user has been added", user, chatroom);
         return messageRepository.save(message);
     }
-//
+
+//    public List<Chatroom> getChatroomByUser(Long id){
+//       return chatroomRepository.findByUserId(id);
+//    }
+
+
 //    public void removeUserFromChatroom(Long userId, Long chatroomId) {
 //        User user = userRepository.findById(userId).get();
 //        Chatroom chatroom = chatroomRepository.findById(chatroomId).get();

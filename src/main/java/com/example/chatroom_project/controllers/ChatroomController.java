@@ -34,6 +34,13 @@ public class ChatroomController {
         return new ResponseEntity<>(chatroomService.getChatroomById(id), HttpStatus.OK);
     }
 
+//    @GetMapping( value = "userId/{id}")
+//    public ResponseEntity<List<Chatroom>> displayChatroomByUser(@PathVariable Long id){
+//        return new ResponseEntity<>(chatroomService.getChatroomByUser(id), HttpStatus.OK);
+//    }
+
+
+
     @PostMapping
     public ResponseEntity<Chatroom> createChatroom(@RequestBody Chatroom chatroom){
         return new ResponseEntity<>(chatroomService.createChatroom(chatroom), HttpStatus.OK);

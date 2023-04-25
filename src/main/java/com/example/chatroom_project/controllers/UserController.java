@@ -48,6 +48,9 @@ public class UserController {
         return new ResponseEntity<>(userService.updateUserName(name, id), HttpStatus.OK);
     }
 
+    @PatchMapping(value = "/message/{id}")
+
+
 
 
 }

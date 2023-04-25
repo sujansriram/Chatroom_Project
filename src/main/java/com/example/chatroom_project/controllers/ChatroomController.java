@@ -49,12 +49,12 @@ public class ChatroomController {
         chatroomService.addUserToChatroom(userId, id);
         return new ResponseEntity<>(String.format("user of id %s has been added to chatroom of id %s", userId, id), HttpStatus.OK);
     }
-
-    @PatchMapping(value = "/removeUser/{id}")
-    public ResponseEntity<String> removeUserFromChatroom(@PathVariable Long id, @RequestBody Long userId){
-        chatroomService.removeUserFromChatroom(userId, id);
-        return new ResponseEntity<>(String.format("user of id %s has been removed from chatroom of id %s", userId, id), HttpStatus.OK);
-    }
+//
+//    @PatchMapping(value = "/removeUser/{id}")
+//    public ResponseEntity<String> removeUserFromChatroom(@PathVariable Long id, @RequestBody Long userId){
+//        chatroomService.removeUserFromChatroom(userId, id);
+//        return new ResponseEntity<>(String.format("user of id %s has been removed from chatroom of id %s", userId, id), HttpStatus.OK);
+//    }
 
 
 

@@ -13,9 +13,9 @@ public class MessageDTO {
 
 //    CONSTRUCTOR
 
-    public MessageDTO(String message, LocalTime time, Long chatroomId, Long userId){
+    public MessageDTO(String message, Long chatroomId, Long userId){
         this.message = message;
-        this.time = time;
+        this.time = LocalTime.now();
         this.chatroomId = chatroomId;
         this.userId = userId;
     }

@@ -26,9 +26,25 @@ public class ChatroomService {
 //    }
 
 
-// GET NAME - DISPLAY CHATROOM TITLE
 
-// GET ALL MESSAGES - STACKS - sorted by user, by time
+    public Chatroom getChatroom(Long id){
+        // GET NAME - DISPLAY CHATROOM TITLE
+        Chatroom chatroom =  chatroomRepository.findById(id).get();
+             String chatroomName = chatroom.getName();
+        // GET ALL MESSAGES - STACKS - sorted by user
+
+//      GET CHATROOM ID FROM DTO CLASS WHERE CHATROOM ID = DTO
+
+
+//        GET USER ID AND CHATROOM ID FROM MESSAGEDTO CONSTRUCTOR
+
+
+    }
+
+//
+
+
+
     // getChatroomByUser -get chatroom(), getUser()
 
 //  ADD INPUT - ADDING A MESSAGE (set message in Message)

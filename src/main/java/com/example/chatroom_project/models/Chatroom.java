@@ -26,14 +26,14 @@ public class Chatroom {
 
 //    private enum userType;
 
-    private List<User> users;
+//    private List<User> users;
 
 
 //CONSTRUCTOR
     public Chatroom (String name){
         this.name = name;
         this.messages = new ArrayList<>();
-        this.users = new ArrayList<>();
+//        this.users = new ArrayList<>();
     }
 //DEFAULT CONSTRUCTOR
     public Chatroom(){
@@ -65,11 +65,11 @@ public class Chatroom {
         this.messages = messages;
     }
 
-    public List<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(List<User> users) {
-        this.users = users;
-    }
+//    public List<User> getUsers() {
+//        return users;
+//    }
+//
+//    public void setUsers(List<User> users) {
+//        this.users = users;
+//    }
 }

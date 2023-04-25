@@ -4,7 +4,9 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Stack;
 
 
 @Entity
@@ -33,6 +35,7 @@ public class Chatroom {
     public Chatroom (String name){
         this.name = name;
         this.messages = new ArrayList<>();
+
 //        this.users = new ArrayList<>();
     }
 //DEFAULT CONSTRUCTOR

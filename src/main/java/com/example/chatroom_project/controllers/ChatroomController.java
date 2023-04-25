@@ -38,12 +38,12 @@ public class ChatroomController {
     public ResponseEntity<Chatroom> createChatroom(@RequestBody Chatroom chatroom){
         return new ResponseEntity<>(chatroomService.createChatroom(chatroom), HttpStatus.OK);
     }
-
-    @DeleteMapping(value = "/{id}")
-    public ResponseEntity<Long> deleteChatroom(@PathVariable Long id){
-        chatroomService.deleteChatroom(id);
-        return new ResponseEntity<>(id, HttpStatus.OK);
-    }
+//
+//    @DeleteMapping(value = "/{id}")
+//    public ResponseEntity<Long> deleteChatroom(@PathVariable Long id){
+//        chatroomService.deleteChatroom(id);
+//        return new ResponseEntity<>(id, HttpStatus.OK);
+//    }
 
     @PatchMapping(value = "/addUser/{id}")
     public ResponseEntity<Message> addUserToChatroom(@PathVariable Long id, @RequestBody Long userId){

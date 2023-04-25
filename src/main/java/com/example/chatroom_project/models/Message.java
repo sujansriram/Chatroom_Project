@@ -3,6 +3,8 @@ package com.example.chatroom_project.models;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
+import java.time.LocalTime;
+
 @Entity
 @Table(name = "messages")
 public class Message {
@@ -15,6 +17,9 @@ public class Message {
 
     @Column
     private String message;
+
+    @Column
+    private LocalTime time;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -30,6 +35,7 @@ public class Message {
 
     public Message(String message, User user, Chatroom chatroom){
         this.message = message;
+        this.time = LocalTime.now();
         this.user = user;
         this.chatroom = chatroom;
     }
@@ -72,5 +78,13 @@ public class Message {
 
     public void setChatroom(Chatroom chatroom) {
         this.chatroom = chatroom;
+    }
+
+    public LocalTime getTime() {
+        return time;
+    }
+
+    public void setTime(LocalTime time) {
+        this.time = time;
     }
 }

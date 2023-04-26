@@ -90,4 +90,8 @@ public class User {
         this.chatrooms.add(chatroom);
     }
 
+    public void removeChatroom(Chatroom chatroom){
+        this.chatrooms.remove(chatroom);
+    }
+
 }

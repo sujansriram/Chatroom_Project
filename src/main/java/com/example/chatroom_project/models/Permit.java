@@ -31,6 +31,10 @@ public class Permit {
         this.permit = permit;
     }
 
+    public Permit(){
+
+    }
+
     public Long getId() {
         return id;
     }

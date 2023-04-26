@@ -55,4 +55,9 @@ public class ChatroomController {
         return new ResponseEntity<>(chatroomService.addUserToChatroom(userId, id), HttpStatus.OK);
     }
 
+    @PatchMapping(value = "/removeUser/{id}")
+    public ResponseEntity<List<User>> removeUserFromChatroom(@PathVariable Long id, @RequestBody Long userId){
+        return new ResponseEntity<>(chatroomService.removeUserFromChatroom(userId, id), HttpStatus.OK);
+    }
+
 }

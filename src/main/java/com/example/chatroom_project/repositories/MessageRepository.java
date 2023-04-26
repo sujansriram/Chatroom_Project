@@ -12,15 +12,6 @@ import java.util.List;
 
 @Repository
 public interface MessageRepository extends JpaRepository<Message, Long> {
-    @Query (value = "SELECT * FROM messages ORDER BY time DESC", nativeQuery = true)
-    List<Message> findByOrderByTimeDesc();
+    List<Message> findByChatroomIdOrderByTimeDesc(Long id);
 
-
-
-//    @Query("SELECT * FROM messages " + "ORDER BY time ASC")
-//    List<Message> messages = repository.findAll(Sort.by(Sort.Direction.ASC, "time"));
-//
-//
-//    @Query(value = "SELECT * FROM permits WHERE (permits.user_id = :userId) AND (permits.chatroom_id = :chatroomId)", nativeQuery = true)
-//    Permit findByUserIdAndChatroomId(@Param("userId") Long userId, @Param("chatroomId") Long chatroomId);
 }

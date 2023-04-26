@@ -4,6 +4,7 @@ import com.example.chatroom_project.models.Chatroom;
 import com.example.chatroom_project.models.Message;
 import com.example.chatroom_project.models.MessageDTO;
 import com.example.chatroom_project.models.User;
+import com.example.chatroom_project.repositories.MessageRepository;
 import com.example.chatroom_project.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,6 +19,9 @@ public class UserController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    MessageRepository messageRepository;
 
 
     @GetMapping

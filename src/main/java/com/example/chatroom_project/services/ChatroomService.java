@@ -83,5 +83,8 @@ public class ChatroomService {
     }
 
 
+    public List<Message> findMessagesForChatroomTimeDesc(Long id) {
+        return messageRepository.findByChatroomIdOrderByTimeDesc(id);
 
+    }
 }

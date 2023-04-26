@@ -69,7 +69,6 @@ public class Chatroom {
 
     public void addMessage(Message message){
         this.messages.add(message);
-        Collections.reverse(this.messages);
     }
     public List<User> getUsers() {
         return users;

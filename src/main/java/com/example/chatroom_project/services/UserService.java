@@ -25,6 +25,7 @@ public class UserService {
     @Autowired
     PermitRepository permitRepository;
 
+
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }

@@ -1,7 +1,15 @@
 package com.example.chatroom_project.controllers;
 
+
+import com.example.chatroom_project.models.Chatroom;
+import com.example.chatroom_project.models.Message;
+import com.example.chatroom_project.models.MessageDTO;
+import com.example.chatroom_project.models.User;
+import com.example.chatroom_project.repositories.MessageRepository;
+
 import com.example.chatroom_project.models.*;
 import com.example.chatroom_project.repositories.PermitRepository;
+
 import com.example.chatroom_project.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,7 +26,11 @@ public class UserController {
     UserService userService;
 
     @Autowired
+    MessageRepository messageRepository;
+
+    @Autowired
     PermitRepository permitRepository;
+
 
     @GetMapping
     public ResponseEntity<List<User>> displayAllUsers(){

@@ -23,10 +23,10 @@ public class Chatroom {
     private String name;
 
     @OneToMany(mappedBy = "chatroom")
-    @JsonIgnoreProperties("chatroom")
+    @JsonIgnoreProperties({"chatroom","user"})
     private List<Message> messages;
 
-    @JsonIgnoreProperties({"chatrooms"})
+    @JsonIgnoreProperties({"chatrooms", "messages"})
     @ManyToMany(mappedBy = "chatrooms")
     private List<User> users;
 
@@ -69,8 +69,8 @@ public class Chatroom {
 
     public void addMessage(Message message){
         this.messages.add(message);
+        Collections.reverse(this.messages);
     }
-
     public List<User> getUsers() {
         return users;
     }

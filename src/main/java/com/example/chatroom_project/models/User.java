@@ -20,10 +20,10 @@ public class User {
     private String email;
 
     @OneToMany(mappedBy = "user")
-    @JsonIgnoreProperties({"user"})
+    @JsonIgnoreProperties({"user", "chatroom"})
     private List<Message> messages;
 
-    @JsonIgnoreProperties({"users"})
+    @JsonIgnoreProperties({"users", "messages"})
     @ManyToMany
     @JoinTable(
             name = "users_chatrooms",

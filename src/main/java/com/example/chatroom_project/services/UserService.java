@@ -24,6 +24,7 @@ public class UserService {
     @Autowired
     MessageRepository messageRepository;
 
+
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
@@ -58,6 +59,7 @@ public class UserService {
         User user = userRepository.findById(userId).get();
         Chatroom chatroom = chatroomRepository.findById(chatroomId).get();
         Message message = new Message(inputMessage, user, chatroom);
+        messageRepository.findByOrderByTimeDesc();
         user.addChatroom(chatroom);
         userRepository.save(user);
         messageRepository.save(message);

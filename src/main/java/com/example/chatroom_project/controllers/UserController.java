@@ -51,11 +51,13 @@ public class UserController {
         return new ResponseEntity<>(userService.updateUserName(name, id), HttpStatus.OK);
     }
 
-    @PatchMapping(value = "/message/{userId}")
+    @PostMapping(value = "/message/{userId}")
     public ResponseEntity<Message> sendMessage(@PathVariable Long userId, @RequestParam Long chatroomId,
                                                @RequestBody String inputMessage){
-        return new ResponseEntity<>(userService.sendMessage(inputMessage, userId, chatroomId), HttpStatus.OK);
+        userService.sendMessage(inputMessage, userId, chatroomId);
+        return new ResponseEntity<>(null, HttpStatus.OK);
     }
 
+//    users/id/message/
 
 }

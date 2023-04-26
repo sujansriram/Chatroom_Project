@@ -54,12 +54,13 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public Message sendMessage(String inputMessage, Long userId, Long chatroomId) {
+    public void sendMessage(String inputMessage, Long userId, Long chatroomId) {
         User user = userRepository.findById(userId).get();
         Chatroom chatroom = chatroomRepository.findById(chatroomId).get();
         Message message = new Message(inputMessage, user, chatroom);
-        chatroom.addUser(user);
-        return messageRepository.save(message);
+        user.addChatroom(chatroom);
+        userRepository.save(user);
+        messageRepository.save(message);
     }
 
 }

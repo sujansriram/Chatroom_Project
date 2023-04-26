@@ -26,17 +26,16 @@ public class Chatroom {
     @JsonIgnoreProperties("chatroom")
     private List<Message> messages;
 
-//    private enum userType;
-
-//    private List<User> users;
+    @JsonIgnoreProperties({"chatrooms"})
+    @ManyToMany(mappedBy = "chatrooms")
+    private List<User> users;
 
 
 //CONSTRUCTOR
     public Chatroom (String name){
         this.name = name;
         this.messages = new ArrayList<>();
-
-//        this.users = new ArrayList<>();
+        this.users = new ArrayList<>();
     }
 //DEFAULT CONSTRUCTOR
     public Chatroom(){
@@ -71,20 +70,21 @@ public class Chatroom {
     public void addMessage(Message message){
         this.messages.add(message);
     }
-//
-//    public List<User> getUsers() {
-//        return users;
-//    }
-//
-//    public void setUsers(List<User> users) {
-//        this.users = users;
-//    }
-//
-//    public void addUser(User user) {
-//        this.users.add(user);
-//    }
-//
-//    public void removeUser(User user) {
-//        this.users.remove(user);
-//    }
+
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
+    }
+
+    public void addUser(User user) {
+        this.users.add(user);
+    }
+
+    public void removeUser(User user) {
+        this.users.remove(user);
+    }
+
 }

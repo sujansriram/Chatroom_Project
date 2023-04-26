@@ -53,18 +53,12 @@ public class UserService {
         user.setName(name);
         return userRepository.save(user);
     }
+
     public Message sendMessage(String inputMessage, Long userId, Long chatroomId) {
-//      find the user and find the chatroom using their Ids
         User user = userRepository.findById(userId).get();
         Chatroom chatroom = chatroomRepository.findById(chatroomId).get();
-
-//      use the user and chatroom to create a new message
         Message message = new Message(inputMessage, user, chatroom);
-
-////        add the message to the chatroom
-//        chatroom.addMessage(message);
-
-//        saving the message to the messageRepository
+        chatroom.addUser(user);
         return messageRepository.save(message);
     }
 

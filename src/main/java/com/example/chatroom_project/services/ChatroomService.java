@@ -41,12 +41,20 @@ public class ChatroomService {
         chatroomRepository.deleteById(id);
     }
 
-    public Message addUserToChatroom(Long userId, Long chatroomId) {
-        MessageDTO addMessage = new MessageDTO("user has been added", chatroomId, userId);
+//    public Message addUserToChatroom(Long userId, Long chatroomId) {
+//        MessageDTO addMessage = new MessageDTO("user has been added", chatroomId, userId);
+//        User user = userRepository.findById(userId).get();
+//        Chatroom chatroom = chatroomRepository.findById(chatroomId).get();
+//        Message message = new Message("user has been added", user, chatroom);
+//        return messageRepository.save(message);
+//    }
+
+    public List<User> addUserToChatroom(Long userId, Long chatroomId){
         User user = userRepository.findById(userId).get();
         Chatroom chatroom = chatroomRepository.findById(chatroomId).get();
-        Message message = new Message("user has been added", user, chatroom);
-        return messageRepository.save(message);
+        user.addChatroom(chatroom);
+        userRepository.save(user);
+        return chatroom.getUsers();
     }
 
 //    public List<Chatroom> getChatroomByUser(Long id){
@@ -54,11 +62,11 @@ public class ChatroomService {
 //    }
 
 
-//    public void removeUserFromChatroom(Long userId, Long chatroomId) {
-//        User user = userRepository.findById(userId).get();
-//        Chatroom chatroom = chatroomRepository.findById(chatroomId).get();
-//        chatroom.removeUser(user);
-//    }
+    public void removeUserFromChatroom(Long userId, Long chatroomId) {
+        User user = userRepository.findById(userId).get();
+        Chatroom chatroom = chatroomRepository.findById(chatroomId).get();
+        chatroom.removeUser(user);
+    }
 
 
 

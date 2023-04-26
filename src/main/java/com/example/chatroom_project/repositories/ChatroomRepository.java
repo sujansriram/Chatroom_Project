@@ -15,7 +15,5 @@ public interface ChatroomRepository extends JpaRepository <Chatroom, Long> {
 //    @Query("SELECT DISTINCT chatroom_id FROM messages" + " WHERE userId = :id")
 //    List<Chatroom> findByUserId(@Param("id") Long id);
 
-    @Query(value = "SELECT * FROM permits WHERE (permits.user_id = :userId) AND (permits.chatroom_id = :chatroomId)", nativeQuery = true)
-    Permit findByUserIdAndChatroomId(@Param("userId") Long userId, @Param("chatroomId") Long chatroomId);
 
 }

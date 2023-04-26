@@ -28,6 +28,7 @@ public class Permit {
     public Permit(boolean permit, User user, Chatroom chatroom){
         this.permit = permit;
         this.user = user;
+        this.chatroom = chatroom;
     }
 
     public Permit(){
@@ -42,7 +43,7 @@ public class Permit {
         this.id = id;
     }
 
-    public boolean isPermit() {
+    public boolean getPermit() {
         return permit;
     }
 

@@ -1,9 +1,7 @@
 package com.example.chatroom_project.controllers;
 
-import com.example.chatroom_project.models.Chatroom;
-import com.example.chatroom_project.models.Message;
-import com.example.chatroom_project.models.MessageDTO;
-import com.example.chatroom_project.models.User;
+import com.example.chatroom_project.models.*;
+import com.example.chatroom_project.repositories.PermitRepository;
 import com.example.chatroom_project.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,6 +17,8 @@ public class UserController {
     @Autowired
     UserService userService;
 
+    @Autowired
+    PermitRepository permitRepository;
 
     @GetMapping
     public ResponseEntity<List<User>> displayAllUsers(){
@@ -51,13 +51,16 @@ public class UserController {
         return new ResponseEntity<>(userService.updateUserName(name, id), HttpStatus.OK);
     }
 
-    @PostMapping(value = "/message/{userId}")
-    public ResponseEntity<Message> sendMessage(@PathVariable Long userId, @RequestParam Long chatroomId,
+    @PostMapping(value = "/{chatroomId}/{userId}/message")
+    public ResponseEntity<Message> sendMessage(@PathVariable Long userId, @PathVariable Long chatroomId,
                                                @RequestBody String inputMessage){
-        userService.sendMessage(inputMessage, userId, chatroomId);
-        return new ResponseEntity<>(null, HttpStatus.OK);
+        Permit permit = permitRepository.findByUserIdAndChatroomId(userId, chatroomId);
+        if(permit.getPermit()){
+            userService.sendMessage(inputMessage, userId, chatroomId);
+            return new ResponseEntity<>(null, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(null, HttpStatus.SERVICE_UNAVAILABLE);
+        }
     }
-
-//    users/id/message/
 
 }

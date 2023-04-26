@@ -19,15 +19,24 @@ public class User {
     @Column(name = "email")
     private String email;
 
-
     @OneToMany(mappedBy = "user")
-    @JsonIgnoreProperties({"user"})
+    @JsonIgnoreProperties({"user", "chatroom"})
     private List<Message> messages;
+
+    @JsonIgnoreProperties({"users", "messages"})
+    @ManyToMany
+    @JoinTable(
+            name = "users_chatrooms",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "chatroom_id")
+    )
+    private List<Chatroom> chatrooms;
 
     public User(String name, String email){
         this.name = name;
         this.email = email;
         this.messages = new ArrayList<>();
+        this.chatrooms = new ArrayList<>();
     }
     
 //    Default constructor
@@ -69,5 +78,20 @@ public class User {
         this.messages = messages;
     }
 
+    public List<Chatroom> getChatrooms() {
+        return chatrooms;
+    }
+
+    public void setChatrooms(List<Chatroom> chatrooms) {
+        this.chatrooms = chatrooms;
+    }
+
+    public void addChatroom(Chatroom chatroom){
+        this.chatrooms.add(chatroom);
+    }
+
+    public void removeChatroom(Chatroom chatroom){
+        this.chatrooms.remove(chatroom);
+    }
 
 }

@@ -1,11 +1,9 @@
 package com.example.chatroom_project.services;
 
-import com.example.chatroom_project.models.Chatroom;
-import com.example.chatroom_project.models.Message;
-import com.example.chatroom_project.models.MessageDTO;
-import com.example.chatroom_project.models.User;
+import com.example.chatroom_project.models.*;
 import com.example.chatroom_project.repositories.ChatroomRepository;
 import com.example.chatroom_project.repositories.MessageRepository;
+import com.example.chatroom_project.repositories.PermitRepository;
 import com.example.chatroom_project.repositories.UserRepository;
 import jakarta.persistence.AttributeOverride;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +16,9 @@ public class ChatroomService {
 
     @Autowired
     MessageRepository messageRepository;
+
+    @Autowired
+    PermitRepository permitRepository;
 
     @Autowired
     UserRepository userRepository;
@@ -41,12 +42,22 @@ public class ChatroomService {
         chatroomRepository.deleteById(id);
     }
 
-    public Message addUserToChatroom(Long userId, Long chatroomId) {
-        MessageDTO addMessage = new MessageDTO("user has been added", chatroomId, userId);
+//    public Message addUserToChatroom(Long userId, Long chatroomId) {
+//        MessageDTO addMessage = new MessageDTO("user has been added", chatroomId, userId);
+//        User user = userRepository.findById(userId).get();
+//        Chatroom chatroom = chatroomRepository.findById(chatroomId).get();
+//        Message message = new Message("user has been added", user, chatroom);
+//        return messageRepository.save(message);
+//    }
+
+    public List<User> addUserToChatroom(Long userId, Long chatroomId){
         User user = userRepository.findById(userId).get();
         Chatroom chatroom = chatroomRepository.findById(chatroomId).get();
-        Message message = new Message("user has been added", user, chatroom);
-        return messageRepository.save(message);
+        user.addChatroom(chatroom);
+        Permit permit = new Permit(true, user, chatroom);
+        permitRepository.save(permit);
+        userRepository.save(user);
+        return chatroom.getUsers();
     }
 
 //    public List<Chatroom> getChatroomByUser(Long id){
@@ -54,11 +65,17 @@ public class ChatroomService {
 //    }
 
 
-//    public void removeUserFromChatroom(Long userId, Long chatroomId) {
-//        User user = userRepository.findById(userId).get();
-//        Chatroom chatroom = chatroomRepository.findById(chatroomId).get();
-//        chatroom.removeUser(user);
-//    }
+    public List<User> removeUserFromChatroom(Long userId, Long chatroomId) {
+        User user = userRepository.findById(userId).get();
+        Chatroom chatroom = chatroomRepository.findById(chatroomId).get();
+        user.removeChatroom(chatroom);
+        Permit permit = permitRepository.findByUserIdAndChatroomId(userId, chatroomId);
+        permit.setPermit(false);
+        permitRepository.save(permit);
+        userRepository.save(user);
+        return chatroom.getUsers();
+
+    }
 
 
 

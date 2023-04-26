@@ -51,7 +51,8 @@ public class UserController {
         return new ResponseEntity<>(userService.updateUserName(name, id), HttpStatus.OK);
     }
 
-    @PostMapping(value = "/{chatroomId}/{userId}/message")
+
+    @PostMapping(value = "/{userId}/{chatroomId}/message")
     public ResponseEntity<Message> sendMessage(@PathVariable Long userId, @PathVariable Long chatroomId,
                                                @RequestBody String inputMessage){
         Permit permit = permitRepository.findByUserIdAndChatroomId(userId, chatroomId);

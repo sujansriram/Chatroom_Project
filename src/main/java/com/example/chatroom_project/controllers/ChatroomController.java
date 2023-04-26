@@ -45,19 +45,30 @@ public class ChatroomController {
     }
 
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<Long> deleteChatroom(@PathVariable Long id){
-        chatroomService.deleteChatroom(id);
-        return new ResponseEntity<>(id, HttpStatus.OK);
+    public ResponseEntity<List<Chatroom>> deleteChatroom(@PathVariable Long id){
+        if (chatroomService.deleteChatroom(id) == null){
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        } else {
+            return new ResponseEntity<>(chatroomService.deleteChatroom(id), HttpStatus.OK);
+        }
     }
 
     @PatchMapping(value = "/addUser/{id}")
     public ResponseEntity<List<User>> addUserToChatroom(@PathVariable Long id, @RequestBody Long userId){
-        return new ResponseEntity<>(chatroomService.addUserToChatroom(userId, id), HttpStatus.OK);
+        if (chatroomService.addUserToChatroom(userId, id) == null){
+            return new ResponseEntity<>(null, HttpStatus.ALREADY_REPORTED);
+        } else {
+            return new ResponseEntity<>(chatroomService.addUserToChatroom(userId, id), HttpStatus.OK);
+        }
     }
 
     @PatchMapping(value = "/removeUser/{id}")
     public ResponseEntity<List<User>> removeUserFromChatroom(@PathVariable Long id, @RequestBody Long userId){
-        return new ResponseEntity<>(chatroomService.removeUserFromChatroom(userId, id), HttpStatus.OK);
+        try {
+            return new ResponseEntity<>(chatroomService.removeUserFromChatroom(userId, id), HttpStatus.OK);
+        } catch(NullPointerException e){
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
     }
 
 }

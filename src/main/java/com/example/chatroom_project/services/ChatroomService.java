@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ChatroomService {
@@ -38,31 +39,35 @@ public class ChatroomService {
         return chatroomRepository.save(chatroom);
     }
 
-    public void deleteChatroom(Long id) {
-        chatroomRepository.deleteById(id);
+    public List<Chatroom> deleteChatroom(Long chatroomId) {
+        Chatroom existingChatroom = chatroomRepository.findById(chatroomId).orElse(null);
+        if(existingChatroom == null) {
+            return null;
+        } else {
+            chatroomRepository.deleteById(chatroomId);
+            messageRepository.deleteByChatroomId(chatroomId);
+            for (User user : existingChatroom.getUsers()){
+                user.getChatrooms().remove(existingChatroom);
+                userRepository.save(user);
+            }
+            return chatroomRepository.findAll();
+        }
     }
-
-//    public Message addUserToChatroom(Long userId, Long chatroomId) {
-//        MessageDTO addMessage = new MessageDTO("user has been added", chatroomId, userId);
-//        User user = userRepository.findById(userId).get();
-//        Chatroom chatroom = chatroomRepository.findById(chatroomId).get();
-//        Message message = new Message("user has been added", user, chatroom);
-//        return messageRepository.save(message);
-//    }
 
     public List<User> addUserToChatroom(Long userId, Long chatroomId){
         User user = userRepository.findById(userId).get();
         Chatroom chatroom = chatroomRepository.findById(chatroomId).get();
-        user.addChatroom(chatroom);
-        Permit permit = new Permit(true, user, chatroom);
-        permitRepository.save(permit);
-        userRepository.save(user);
-        return chatroom.getUsers();
-    }
 
-//    public List<Chatroom> getChatroomByUser(Long id){
-//       return chatroomRepository.findByUserId(id);
-//    }
+        if (chatroom.getUsers().contains(user)){
+            return null;
+        } else {
+            user.addChatroom(chatroom);
+            Permit permit = new Permit(true, user, chatroom);
+            permitRepository.save(permit);
+            userRepository.save(user);
+            return chatroom.getUsers();
+        }
+    }
 
 
     public List<User> removeUserFromChatroom(Long userId, Long chatroomId) {

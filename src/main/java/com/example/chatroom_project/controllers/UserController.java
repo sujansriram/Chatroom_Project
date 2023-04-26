@@ -51,7 +51,6 @@ public class UserController {
         return new ResponseEntity<>(userService.updateUserName(name, id), HttpStatus.OK);
     }
 
-
     @PostMapping(value = "/{userId}/{chatroomId}/message")
     public ResponseEntity<Message> sendMessage(@PathVariable Long userId, @PathVariable Long chatroomId,
                                                @RequestBody String inputMessage){

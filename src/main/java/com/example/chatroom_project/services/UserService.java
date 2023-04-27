@@ -26,6 +26,7 @@ public class UserService {
     PermitRepository permitRepository;
 
 
+
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
@@ -68,8 +69,11 @@ public class UserService {
     }
 
 
-//    public User updateUser(Long userId) {
-//        User user = userRepository.findById(userId).get();
-//        updateUser()
-//    }
+    public User updateUser(UserDTO userDTO, Long userId) {
+        User userToUpdate = userRepository.findById(userId).get();
+        userToUpdate.setName(userDTO.getName());
+        userToUpdate.setEmail(userDTO.getEmail());
+        userRepository.save(userToUpdate);
+        return userToUpdate;
+    }
 }

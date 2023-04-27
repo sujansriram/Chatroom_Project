@@ -52,8 +52,8 @@ public class UserController {
 
     //    UPDATE:
     @PutMapping(value = "{userId}")
-    public ResponseEntity<User> updateUser (@PathVariable Long userId){
-        User updateUser = userService.updateUser(userId);
+    public ResponseEntity<User> updateUser (@PathVariable Long userId, @RequestBody UserDTO userDTO){
+        User updateUser = userService.updateUser(userDTO, userId);
         return new ResponseEntity<>(updateUser, HttpStatus.OK);
     }
 
@@ -71,18 +71,6 @@ public class UserController {
         return new ResponseEntity<>(id, HttpStatus.OK);
     }
 
-//GET RID OF THIS: REPLACE IT WITH WHAT ANNA SAID
-    @PatchMapping(value = "/email/{id}")
-    public ResponseEntity<User> changeEmail(@PathVariable Long id, @RequestBody String email){
-        return new ResponseEntity<>(userService.updateUserEmail(email, id), HttpStatus.OK);
-    }
-
-//    GET RID OF THIS: REPLACE IT WITH WHAT ANNA SAID
-    @PatchMapping(value = "/name/{id}")
-    public ResponseEntity<User> changeName(@PathVariable Long id, @RequestBody String name){
-        return new ResponseEntity<>(userService.updateUserName(name, id), HttpStatus.OK);
-    }
-
     @PostMapping(value = "/{userId}/{chatroomId}/message")
     public ResponseEntity<Message> sendMessage(@PathVariable Long userId, @PathVariable Long chatroomId,
                                                @RequestBody String inputMessage){
@@ -93,6 +81,7 @@ public class UserController {
         } else {
             return new ResponseEntity<>(null, HttpStatus.SERVICE_UNAVAILABLE);
         }
+
     }
 // SHOW
     @GetMapping(value = "/{userId}/chatrooms")

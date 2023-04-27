@@ -23,33 +23,27 @@ For the user to create a chatroom, add users and send messages.
 ### List of example routes:
 
 ##User Controller
-| Route Name | Request Type | RequestBody                  | RequestPath               |
-|------|--------------|------------------------------|---------------------------|
-| displayAllUsers | GET          | null                         | /users                    |
-| getUserById | GET          | null                         | /users/{userId}           |
-| editUser | GET (edit)   | null                         | /users/{userId}/edit      |
-| updateUser | PUT          | UserDTO ("name" and "email") | /users/{userId}           |
-| createUser | POST         | null                         | /users                    |
-| deleteUser | DELETE       | null                         | /users                    
-| displayChatroomsByUser | POST         | User                         | /users/{userId}/chatrooms |
-
 ## Chatroom Controller
-| Route Name             | Request Type | RequestBody                  | RequestPath                  |
-|------------------------|----------|------------------------------|------------------------------|
-| displayAllChatrooms    | GET      | null                         | /chatrooms                   |
-| displayChatroomById    | GET      | null                         | /chatrooms/{chatroomId}      |
-| editChatroomName       | GET (edit) | null                         | /chatrooms/{chatroomId}/edit |
-| updateChatroomName     | PUT      | UserDTO ("name" and "email") | /users/{userId}              |
-| createChatroom         | POST     | null                         | /users                       |
-| deleteChatroom         | DELETE   | null                         | /users                        
-| addUserToChatroom      | UPDATE   |     |     |
-| removeUserFromChatroom | UPDATE   |-----|-----|
+| Route Name             | Request Type | RequestBody          | RequestPath                                   |
+|------------------------|----------|----------------------|-----------------------------------------------|
+| displayAllChatrooms    | GET      | null                 | /chatrooms                                    |
+| displayChatroomById    | GET      | null                 | /chatrooms/{chatroomId}                       |
+| editChatroomName       | GET (edit) | null                 | /chatrooms/{chatroomId}/edit                  |
+| updateChatroomName     | PUT      | ChatroomDTO ("name") | /chatrooms/{userId}                           |
+| createChatroom         | POST     | Chatroom ("name")    | /chatrooms                                    |
+| deleteChatroom         | DELETE   | null                 | /chatrooms/{id}                               
+| addUserToChatroom      | UPDATE   | null                 | /chatrooms/{chatroomId}/users/{userId}/add    |
+| removeUserFromChatroom | UPDATE   | null                 | /chatrooms/{chatroomId}/users/{userId}/remove |
 
+## User Controller
 
-
-1. Create a user: you need 
-2. Create a chatroom
-3. Edit the chatroom name
-3. Add a user
-4. Send a message
-5. 
+| Route Name             | Request Type | RequestBody                  | RequestPath                                   |
+|------------------------|--------------|------------------------------|-----------------------------------------------|
+| displayAllUsers        | GET          | null                         | /users                                      |
+| displayUserById        | GET          | null                         | /users/{userId}                      |
+| editUser               | GET (edit)   | null                         | /users/{userId}/edit                  |
+| updateUser             | PUT          | UserDTO ("name" and "email") | /chatrooms/{userId}                           |
+| createUser             | POST         | null                         | /users                                    |
+| deleteUser             | DELETE       | null                         | /users                              
+| displayChatroomsByUser | POST         | User                         | /users/{userId}/chatrooms    |
+ 

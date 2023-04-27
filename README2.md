@@ -45,11 +45,16 @@ For the user to create a chatroom, add users and send messages.
 | addUserToChatroom      | UPDATE   |     |     |
 | removeUserFromChatroom | UPDATE   |-----|-----|
 
+## Message Controller
+
+| Route Name                  | Request Type | RequestBody  | RequestPath            |
+|-----------------------------|--------------|--------------|------------------------|
+| sendMessage                 | POST         | MessageDTO (" | /messages              |
+| deleteMessage               | DELETE       | null         | /messages/{id}         |
+| retrieveMessagesForChatroom | GET          | null         | /messages/{chatroomId} |
 
 
-1. Create a user: you need 
-2. Create a chatroom
-3. Edit the chatroom name
-3. Add a user
-4. Send a message
-5. 
+## Further Extensions We Would Have Liked To Include
+
+
+## Additional Quirks

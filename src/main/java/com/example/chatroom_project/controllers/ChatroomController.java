@@ -70,7 +70,6 @@ public class ChatroomController {
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
     }
-
     @GetMapping(value = "/{id}/messages")
     public ResponseEntity<List<Message>> retrieveMessagesForChatroom(@PathVariable Long id){
         return new ResponseEntity<>(chatroomService.findMessagesForChatroomTimeDesc(id), HttpStatus.OK);

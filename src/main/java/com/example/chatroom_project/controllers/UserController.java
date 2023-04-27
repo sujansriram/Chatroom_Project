@@ -75,4 +75,9 @@ public class UserController {
         }
     }
 
+    @GetMapping(value = "/{userId}/chatrooms")
+    public ResponseEntity<List<Chatroom>> displayChatroomsByUser (@PathVariable Long userId){
+        return new ResponseEntity<>(userService.displayChatroomsByUserId(userId), HttpStatus.OK);
+    }
+
 }

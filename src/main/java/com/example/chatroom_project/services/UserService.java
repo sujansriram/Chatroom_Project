@@ -5,11 +5,13 @@ import com.example.chatroom_project.repositories.ChatroomRepository;
 import com.example.chatroom_project.repositories.MessageRepository;
 import com.example.chatroom_project.repositories.PermitRepository;
 import com.example.chatroom_project.repositories.UserRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Transactional
 @Service
 public class UserService {
 
@@ -40,6 +42,11 @@ public class UserService {
     }
 
     public void deleteUser(Long id) {
+        User user = userRepository.findById(id).get();
+        for (Chatroom chatroom : user.getChatrooms()){
+            chatroom.removeUser(user);
+        }
+        permitRepository.deleteByUserId(id);
         userRepository.deleteById(id);
     }
 

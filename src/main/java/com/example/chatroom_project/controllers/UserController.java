@@ -3,13 +3,16 @@ package com.example.chatroom_project.controllers;
 import com.example.chatroom_project.models.*;
 import com.example.chatroom_project.repositories.PermitRepository;
 import com.example.chatroom_project.services.UserService;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
+@Transactional
 @RestController
 @RequestMapping(value = "/users")
 public class UserController {
@@ -27,7 +30,11 @@ public class UserController {
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<User> displayUserById (@PathVariable Long id) {
-       return new ResponseEntity<>(userService.getUserById(id), HttpStatus.OK);
+        try {
+            return new ResponseEntity<>(userService.getUserById(id), HttpStatus.OK);
+        } catch (NoSuchElementException e){
+            return new ResponseEntity<>(null, HttpStatus.OK);
+        }
     }
 
     @PostMapping
@@ -37,8 +44,12 @@ public class UserController {
 
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Long> deleteUser(@PathVariable Long id){
-        userService.deleteUser(id);
-        return new ResponseEntity<>(id, HttpStatus.OK);
+        try {
+            userService.deleteUser(id);
+            return new ResponseEntity<>(id, HttpStatus.OK);
+        } catch (NoSuchElementException e){
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
     }
 
     @PatchMapping(value = "/email/{id}")

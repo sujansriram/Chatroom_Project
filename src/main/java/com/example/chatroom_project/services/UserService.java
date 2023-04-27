@@ -63,12 +63,6 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public Message sendMessage(String inputMessage, Long userId, Long chatroomId) {
-        User user = userRepository.findById(userId).get();
-        Chatroom chatroom = chatroomRepository.findById(chatroomId).get();
-        Message message = new Message(inputMessage, user, chatroom);
-        return messageRepository.save(message);
-    }
     public List<Chatroom> displayChatroomsByUserId(Long id){
         User user = userRepository.findById(id).get();
         return user.getChatrooms();

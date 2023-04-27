@@ -74,18 +74,6 @@ public class UserController {
         return new ResponseEntity<>(userService.updateUserName(name, id), HttpStatus.OK);
     }
 
-    @PostMapping(value = "/{userId}/{chatroomId}/message")
-    public ResponseEntity<Message> sendMessage(@PathVariable Long userId, @PathVariable Long chatroomId,
-                                               @RequestBody String inputMessage){
-        Permit permit = permitRepository.findByUserIdAndChatroomId(userId, chatroomId);
-        if(permit.getPermit()){
-            userService.sendMessage(inputMessage, userId, chatroomId);
-            return new ResponseEntity<>(null, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(null, HttpStatus.SERVICE_UNAVAILABLE);
-        }
-    }
-
     @GetMapping(value = "/{userId}/chatrooms")
     public ResponseEntity<List<Chatroom>> displayChatroomsByUser (@PathVariable Long userId){
         return new ResponseEntity<>(userService.displayChatroomsByUserId(userId), HttpStatus.OK);

@@ -45,10 +45,9 @@ spring.jpa.properties.hibernate.enable_lazy_load_no_trans=true
 
 ## Diagrams:
 ### UML Diagram:
-![](/Users/sarah/Downloads/Screenshot 2023-04-27 at 17.56.50.png) 
-
+![](/Users/nasthasia/bnta_work/week_06/UML diagram.png)
 ### ERD Diagram:
-![](/Users/sarah/Downloads/Screenshot 2023-04-27 at 17.57.25.png)
+<img src="/Users/nasthasia/bnta_work/week_06/ERD diagram.png"/>
 
 
 
@@ -101,12 +100,12 @@ spring.jpa.properties.hibernate.enable_lazy_load_no_trans=true
    > 2) `Body` -> `form-data`
    > 3) Within `key` type in `image`
    > 4) Hover your mouse in the top-right corner of the `image` box and click on the drop-down and select `file` NOT `text`
-   > 5) Type the file's name into `value`. For example: `balloons.png`
+   > 5) In the `value` box, select an image file from your Desktop into `value`. For example: an image named `balloons.png` or `balloons.jpeg`
 
 
 ##### An example of how to execute the `downloadImage` route in Postman:
 ` GET ->  localhost:8080/image/balloons.png/`
->*** CAUTION: You must include the final slash at the end of the path/url or it will break.
+>*** CAUTION: You must include the final slash at the end of the path/url, or it will break. If running as it should, you will see your selected image returned to you in the Postman console.
 
 ## Aspirational Extension Tasks
 #### Given extra time, we would have implemented the following features/functionality to the API:

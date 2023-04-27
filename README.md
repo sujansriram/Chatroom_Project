@@ -1,30 +1,26 @@
-# My readme
+# WELCOME TO THE ROOM RAIDERS API
 
-### Technical Information:
-Java 17. 
-
-Maven.
-
-Spring 3.0.7
-
-Dependencies: lombok, JPA, Spring web, Spring boot dev tools, Postgresql.
-
-### Installation Instructions:
-
-Install Postman, Postico, Postgresql , IntelliJ.
-
-To create a local database called `chatroom_db`, run the command `createdb chatroom_db`
-in the terminal.
 ### Project aims:
 
-For the user to `create a chatroom`, `add users` and `send messages`.
+This project aims to create a chatroom which allows users to `create/ delete new users`, `create/delete new chatrooms`. As well as `send messages/images` within specific chatrooms. We have also added functionality to `remove users from specific chatrooms`, `update user info` such as email and names.
+
+### Technical Information:
+We used:
+* Spring 3.0.7
+* Dependencies -> `Lombok`, `Spring Data JPA`, `Spring Web`, `Spring Boot DevTools`, `PostgreSQL Driver`
+* `IntelliJ`, `Postgresql`, `Postico` & `Postman` to help create and visualise our code
+
+### Installation Guide:
+
+Create a local database using the terminal -> run the command `createdb chatroom_db`
+
 
 ### UML Diagram and ERD Diagram
 
 ![](/Users/sarah/Downloads/Screenshot 2023-04-27 at 17.56.50.png)
 ![](/Users/sarah/Downloads/Screenshot 2023-04-27 at 17.57.25.png)
 
-## List of example routes:
+## List of routes:
 
 ### User Controller
 | Route Name             | Request Type | RequestBody                  | RequestPath                                   |
@@ -65,10 +61,11 @@ For the user to `create a chatroom`, `add users` and `send messages`.
 | `uploadImage`            | POST         | null  (@RequestParam read more below***) | /image                    |
 | `downloadImage`          | GET          | null                                     | /image/{fileName}/        |
 
-** in the uploadImage route the @RequestParam represents the image.
-An example of how to execute this in Postman:
-1) POST localhost:8080/image
-2) Body -> form-data
+>The uploadImage route the @RequestParam represents the image. See the example below:
+
+##### An example of how to execute the uploadImage route in Postman:
+1) `POST` localhost:8080/image
+2) `Body` -> `form-data`
 3) Within the key enter `image`
 4) Hover mouse at then end of the `image` box and click on the drop-down and select `file`
 5) The value would include the filename for example: `balloons.png`
@@ -78,8 +75,9 @@ An example of how to execute `downloadImage` in Postman:
 (MUST include the final slash at the end of the path or there will be an error!)
 
 ## Further Extensions We Would Have Liked To Include:
-If we had extra time, we would have:
+#### If we had extra time, we would have:
 1. Created user types: participants, moderators and admin
 2. Added logic to delete the chatroom method so that a chatroom automatically deletes when no users exist in the chatroom
 3. Enabled videos to be sent as messages
+4. In the front-end, it would be nice to include automated suggestions for text (This can be done by implementing ChatGpt's API)
 

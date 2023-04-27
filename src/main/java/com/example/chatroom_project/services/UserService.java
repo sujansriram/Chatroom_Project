@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Transactional
 @Service
 public class UserService {
 
@@ -44,6 +43,7 @@ public class UserService {
         return userRepository.save(user);
     }
 
+    @Transactional
     public void deleteUser(Long id) {
         User user = userRepository.findById(id).get();
         for (Chatroom chatroom : user.getChatrooms()){

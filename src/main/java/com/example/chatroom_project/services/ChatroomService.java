@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Transactional
+
 @Service
 public class ChatroomService {
 
@@ -40,7 +40,7 @@ public class ChatroomService {
         return chatroomRepository.save(chatroom);
     }
 
-
+    @Transactional
     public void deleteChatroom(Long id) {
         Chatroom chatroom = chatroomRepository.findById(id).get();
         for (User user : chatroom.getUsers()){
@@ -53,16 +53,11 @@ public class ChatroomService {
     public List<User> addUserToChatroom(Long userId, Long chatroomId) {
         User user = userRepository.findById(userId).get();
         Chatroom chatroom = chatroomRepository.findById(chatroomId).get();
-
-        if (chatroom.getUsers().contains(user)) {
-            return null;
-        } else {
-            user.addChatroom(chatroom);
-            Permit permit = new Permit(true, user, chatroom);
-            permitRepository.save(permit);
-            userRepository.save(user);
-            return chatroom.getUsers();
-        }
+        user.addChatroom(chatroom);
+        Permit permit = new Permit(true, user, chatroom);
+        permitRepository.save(permit);
+        userRepository.save(user);
+        return chatroom.getUsers();
     }
 
 
@@ -79,10 +74,6 @@ public class ChatroomService {
     }
 
 
-    public List<Message> findMessagesForChatroomTimeDesc(Long id) {
-        return messageRepository.findByChatroomIdOrderByTimeDesc(id);
-
-    }
 
     public Chatroom updateChatroomName(ChatroomDTO chatroomDTO, Long chatroomId) {
 //        get the chatroom that needs to be updated

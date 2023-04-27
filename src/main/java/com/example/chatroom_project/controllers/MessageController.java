@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 
 @RestController
@@ -21,18 +22,10 @@ public class MessageController {
     @Autowired
     PermitRepository permitRepository;
 
+
     @PostMapping
     public ResponseEntity<Message> sendMessage(@RequestBody MessageDTO messageDTO){
-        Permit permit = permitRepository.findByUserIdAndChatroomId(messageDTO.getUserId(), messageDTO.getChatroomId());
-        if (permit.getPermit()) {
-            try {
-                return new ResponseEntity<>(messageService.sendMessage(messageDTO), HttpStatus.OK);
-            } catch (NoSuchElementException e) {
-                return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
-            }
-        } else {
-            return new ResponseEntity<>(null, HttpStatus.SERVICE_UNAVAILABLE);
-        }
+        return new ResponseEntity<>(messageService.sendMessage(messageDTO), HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/{id}")
@@ -43,6 +36,11 @@ public class MessageController {
         } catch (NoSuchElementException e){
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
+    }
+
+    @GetMapping(value = "/{chatroomId}")
+    public ResponseEntity<List<Message>> retrieveMessagesForChatroom(@PathVariable Long chatroomId){
+        return new ResponseEntity<>(messageService.findMessagesForChatroomTimeDesc(chatroomId), HttpStatus.OK);
     }
 
 }

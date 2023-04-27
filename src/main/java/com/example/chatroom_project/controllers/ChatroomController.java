@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 
-@Transactional
+//@Transactional
 @RestController
 @RequestMapping(value = "/chatrooms")
 public class ChatroomController {
@@ -79,11 +79,7 @@ public class ChatroomController {
 // UPDATE
     @PatchMapping(value = "/{chatroomId}/users/{userId}/add")
     public ResponseEntity<List<User>> addUserToChatroom(@PathVariable Long chatroomId, @PathVariable Long userId){
-        if (chatroomService.addUserToChatroom(userId, chatroomId) == null){
-            return new ResponseEntity<>(null, HttpStatus.ALREADY_REPORTED);
-        } else {
-            return new ResponseEntity<>(chatroomService.addUserToChatroom(userId, chatroomId), HttpStatus.OK);
-        }
+        return new ResponseEntity<>(chatroomService.addUserToChatroom(userId, chatroomId), HttpStatus.OK);
     }
 
 //    UPDATE
@@ -97,10 +93,6 @@ public class ChatroomController {
     }
 
 //    SHOW
-    @GetMapping(value = "/{id}/messages")
-    public ResponseEntity<List<Message>> retrieveMessagesForChatroom(@PathVariable Long id){
-        return new ResponseEntity<>(chatroomService.findMessagesForChatroomTimeDesc(id), HttpStatus.OK);
 
-    }
 
 }

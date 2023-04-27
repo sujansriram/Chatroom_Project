@@ -10,6 +10,8 @@ import com.example.chatroom_project.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class MessageService {
 
@@ -32,6 +34,10 @@ public class MessageService {
 
     public void deleteMessage(Long id){
         messageRepository.deleteById(id);
+    }
+
+    public List<Message> findMessagesForChatroomTimeDesc(Long id) {
+        return messageRepository.findByChatroomIdOrderByTimeDesc(id);
     }
 
 }

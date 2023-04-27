@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-@Transactional
+
 @RestController
 @RequestMapping(value = "/users")
 public class UserController {
@@ -45,7 +45,7 @@ public class UserController {
         try {
             return new ResponseEntity<>(userService.getUserById(userId), HttpStatus.OK);
         } catch (NoSuchElementException e){
-            return new ResponseEntity<>(null, HttpStatus.OK);
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
     }
 
@@ -85,7 +85,11 @@ public class UserController {
 // SHOW
     @GetMapping(value = "/{userId}/chatrooms")
     public ResponseEntity<List<Chatroom>> displayChatroomsByUser (@PathVariable Long userId){
-        return new ResponseEntity<>(userService.displayChatroomsByUserId(userId), HttpStatus.OK);
+        try {
+            return new ResponseEntity<>(userService.displayChatroomsByUserId(userId), HttpStatus.OK);
+        } catch (NoSuchElementException e){
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
     }
 
 }

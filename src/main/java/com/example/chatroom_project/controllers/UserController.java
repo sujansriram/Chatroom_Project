@@ -1,9 +1,9 @@
 package com.example.chatroom_project.controllers;
 
 
+import com.example.chatroom_project.dtos.UserDTO;
 import com.example.chatroom_project.models.Chatroom;
 import com.example.chatroom_project.models.Message;
-import com.example.chatroom_project.models.MessageDTO;
 import com.example.chatroom_project.models.User;
 import com.example.chatroom_project.repositories.MessageRepository;
 

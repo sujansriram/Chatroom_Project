@@ -1,4 +1,4 @@
-package com.example.chatroom_project.models;
+package com.example.chatroom_project.dtos;
 
 import java.time.LocalTime;
 

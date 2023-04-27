@@ -1,19 +1,17 @@
 package com.example.chatroom_project.controllers;
 
 
+import com.example.chatroom_project.dtos.ChatroomDTO;
 import com.example.chatroom_project.models.Chatroom;
 import com.example.chatroom_project.models.Message;
 import com.example.chatroom_project.models.User;
-import com.example.chatroom_project.repositories.ChatroomRepository;
 import com.example.chatroom_project.services.ChatroomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "/chatrooms")
@@ -35,7 +33,22 @@ public class ChatroomController {
         return new ResponseEntity<>(chatroomService.getChatroomById(id), HttpStatus.OK);
     }
 
-//    CREATE
+    // EDIT:
+    @GetMapping(value = "/{chatroomId}/edit")
+    public ResponseEntity<Chatroom> editChatroomName (@PathVariable Long chatroomId){
+        Chatroom foundChatroomName = chatroomService.getChatroomById(chatroomId);
+        return new ResponseEntity<>(foundChatroomName, HttpStatus.OK);
+    }
+
+    //    UPDATE:
+    @PutMapping(value = "{chatroomId}")
+    public ResponseEntity<Chatroom> updateChatroomName (@PathVariable Long chatroomId, @RequestBody ChatroomDTO chatroomDTO){
+        Chatroom updateChatroomName =  chatroomService.updateChatroomName(chatroomDTO, chatroomId);
+        return new ResponseEntity<>(updateChatroomName, HttpStatus.OK);
+    }
+
+
+    //    CREATE
     @PostMapping
     public ResponseEntity<Chatroom> createChatroom(@RequestBody Chatroom chatroom){
         return new ResponseEntity<>(chatroomService.createChatroom(chatroom), HttpStatus.OK);
@@ -51,7 +64,7 @@ public class ChatroomController {
         }
     }
 
-//MODIFY TO AN EDIT
+// UPDATE
     @PatchMapping(value = "/addUser/{id}")
     public ResponseEntity<List<User>> addUserToChatroom(@PathVariable Long id, @RequestBody Long userId){
         if (chatroomService.addUserToChatroom(userId, id) == null){
@@ -61,6 +74,7 @@ public class ChatroomController {
         }
     }
 
+//    UPDATE
     @PatchMapping(value = "/removeUser/{id}")
     public ResponseEntity<List<User>> removeUserFromChatroom(@PathVariable Long id, @RequestBody Long userId){
         try {

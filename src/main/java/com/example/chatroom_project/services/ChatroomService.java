@@ -1,5 +1,6 @@
 package com.example.chatroom_project.services;
 
+import com.example.chatroom_project.dtos.ChatroomDTO;
 import com.example.chatroom_project.models.*;
 import com.example.chatroom_project.repositories.ChatroomRepository;
 import com.example.chatroom_project.repositories.MessageRepository;
@@ -27,11 +28,11 @@ public class ChatroomService {
     @Autowired
     ChatroomRepository chatroomRepository;
 
-    public List<Chatroom> getAllChatrooms(){
+    public List<Chatroom> getAllChatrooms() {
         return chatroomRepository.findAll();
     }
 
-    public Chatroom getChatroomById(Long id){
+    public Chatroom getChatroomById(Long id) {
         return chatroomRepository.findById(id).get();
     }
 
@@ -41,12 +42,12 @@ public class ChatroomService {
 
     public List<Chatroom> deleteChatroom(Long chatroomId) {
         Chatroom existingChatroom = chatroomRepository.findById(chatroomId).orElse(null);
-        if(existingChatroom == null) {
+        if (existingChatroom == null) {
             return null;
         } else {
             chatroomRepository.deleteById(chatroomId);
             messageRepository.deleteByChatroomId(chatroomId);
-            for (User user : existingChatroom.getUsers()){
+            for (User user : existingChatroom.getUsers()) {
                 user.getChatrooms().remove(existingChatroom);
                 userRepository.save(user);
             }
@@ -54,11 +55,11 @@ public class ChatroomService {
         }
     }
 
-    public List<User> addUserToChatroom(Long userId, Long chatroomId){
+    public List<User> addUserToChatroom(Long userId, Long chatroomId) {
         User user = userRepository.findById(userId).get();
         Chatroom chatroom = chatroomRepository.findById(chatroomId).get();
 
-        if (chatroom.getUsers().contains(user)){
+        if (chatroom.getUsers().contains(user)) {
             return null;
         } else {
             user.addChatroom(chatroom);
@@ -86,5 +87,15 @@ public class ChatroomService {
     public List<Message> findMessagesForChatroomTimeDesc(Long id) {
         return messageRepository.findByChatroomIdOrderByTimeDesc(id);
 
+    }
+
+    public Chatroom updateChatroomName(ChatroomDTO chatroomDTO, Long chatroomId) {
+//        get the chatroom that needs to be updated
+        Chatroom chatroomToUpdate = chatroomRepository.findById(chatroomId).get();
+//      change the name
+        chatroomToUpdate.setName(chatroomDTO.getName());
+//      save it
+        chatroomRepository.save(chatroomToUpdate);
+        return chatroomToUpdate;
     }
 }

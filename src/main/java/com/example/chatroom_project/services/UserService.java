@@ -1,5 +1,6 @@
 package com.example.chatroom_project.services;
 
+import com.example.chatroom_project.dtos.UserDTO;
 import com.example.chatroom_project.models.*;
 import com.example.chatroom_project.repositories.ChatroomRepository;
 import com.example.chatroom_project.repositories.MessageRepository;

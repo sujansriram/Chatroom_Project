@@ -23,27 +23,25 @@ public class ChatroomController {
     ChatroomService chatroomService;
 
 
-//    GET
+//    INDEX
     @GetMapping
     public ResponseEntity<List<Chatroom>> displayAllChatrooms(){
         return new ResponseEntity<>(chatroomService.getAllChatrooms(), HttpStatus.OK);
     }
 
+//    SHOW
     @GetMapping( value = "/{id}")
     public ResponseEntity<Chatroom> displayChatroomById(@PathVariable Long id){
         return new ResponseEntity<>(chatroomService.getChatroomById(id), HttpStatus.OK);
     }
 
-//    @GetMapping( value = "userId/{id}")
-//    public ResponseEntity<List<Chatroom>> displayChatroomByUser(@PathVariable Long id){
-//        return new ResponseEntity<>(chatroomService.getChatroomByUser(id), HttpStatus.OK);
-//    }
-
+//    CREATE
     @PostMapping
     public ResponseEntity<Chatroom> createChatroom(@RequestBody Chatroom chatroom){
         return new ResponseEntity<>(chatroomService.createChatroom(chatroom), HttpStatus.OK);
     }
 
+//    DELETE
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<List<Chatroom>> deleteChatroom(@PathVariable Long id){
         if (chatroomService.deleteChatroom(id) == null){
@@ -53,6 +51,7 @@ public class ChatroomController {
         }
     }
 
+//MODIFY TO AN EDIT
     @PatchMapping(value = "/addUser/{id}")
     public ResponseEntity<List<User>> addUserToChatroom(@PathVariable Long id, @RequestBody Long userId){
         if (chatroomService.addUserToChatroom(userId, id) == null){
@@ -71,6 +70,7 @@ public class ChatroomController {
         }
     }
 
+//    SHOW
     @GetMapping(value = "/{id}/messages")
     public ResponseEntity<List<Message>> retrieveMessagesForChatroom(@PathVariable Long id){
         return new ResponseEntity<>(chatroomService.findMessagesForChatroomTimeDesc(id), HttpStatus.OK);

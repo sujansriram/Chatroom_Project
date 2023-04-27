@@ -67,4 +67,9 @@ public class UserService {
         return user.getChatrooms();
     }
 
+
+//    public User updateUser(Long userId) {
+//        User user = userRepository.findById(userId).get();
+//        updateUser()
+//    }
 }

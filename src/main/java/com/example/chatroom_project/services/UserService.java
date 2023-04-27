@@ -27,6 +27,7 @@ public class UserService {
     @Autowired
     PermitRepository permitRepository;
 
+
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
@@ -67,6 +68,10 @@ public class UserService {
         Chatroom chatroom = chatroomRepository.findById(chatroomId).get();
         Message message = new Message(inputMessage, user, chatroom);
         return messageRepository.save(message);
+    }
+    public List<Chatroom> displayChatroomsByUserId(Long id){
+        User user = userRepository.findById(id).get();
+        return user.getChatrooms();
     }
 
 }

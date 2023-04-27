@@ -23,6 +23,7 @@ public class User {
     @JsonIgnoreProperties({"user", "chatroom"})
     private List<Message> messages;
 
+
     @JsonIgnoreProperties({"users", "messages"})
     @ManyToMany
     @JoinTable(

@@ -1,7 +1,15 @@
 package com.example.chatroom_project.controllers;
 
+
+import com.example.chatroom_project.models.Chatroom;
+import com.example.chatroom_project.models.Message;
+import com.example.chatroom_project.models.MessageDTO;
+import com.example.chatroom_project.models.User;
+import com.example.chatroom_project.repositories.MessageRepository;
+
 import com.example.chatroom_project.models.*;
 import com.example.chatroom_project.repositories.PermitRepository;
+
 import com.example.chatroom_project.services.UserService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +29,11 @@ public class UserController {
     UserService userService;
 
     @Autowired
+    MessageRepository messageRepository;
+
+    @Autowired
     PermitRepository permitRepository;
+
 
     @GetMapping
     public ResponseEntity<List<User>> displayAllUsers(){
@@ -72,6 +84,11 @@ public class UserController {
         } else {
             return new ResponseEntity<>(null, HttpStatus.SERVICE_UNAVAILABLE);
         }
+    }
+
+    @GetMapping(value = "/{userId}/chatrooms")
+    public ResponseEntity<List<Chatroom>> displayChatroomsByUser (@PathVariable Long userId){
+        return new ResponseEntity<>(userService.displayChatroomsByUserId(userId), HttpStatus.OK);
     }
 
 }

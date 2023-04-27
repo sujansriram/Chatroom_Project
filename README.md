@@ -71,8 +71,9 @@ Create a local database using the terminal -> run the command `createdb chatroom
 5) The value would include the filename for example: `balloons.png`
 
 An example of how to execute `downloadImage` in Postman:
-`GET localhost:8080/image/balloons.png/ `
-(MUST include the final slash at the end of the path or there will be an error!)
+
+GET localhost:8080/image/balloons.png/ 
+>MUST include the final slash at the end of the path or there will be an error!)
 
 ## Further Extensions We Would Have Liked To Include:
 #### If we had extra time, we would have:

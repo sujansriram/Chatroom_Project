@@ -1,18 +1,22 @@
 package com.example.chatroom_project.controllers;
 
 
-import com.example.chatroom_project.dtos.ChatroomDTO;
+import com.example.chatroom_project.models.ChatroomDTO;
 import com.example.chatroom_project.models.Chatroom;
 import com.example.chatroom_project.models.Message;
 import com.example.chatroom_project.models.User;
 import com.example.chatroom_project.services.ChatroomService;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
+
+@Transactional
 @RestController
 @RequestMapping(value = "/chatrooms")
 public class ChatroomController {
@@ -30,8 +34,13 @@ public class ChatroomController {
 //    SHOW
     @GetMapping( value = "/{id}")
     public ResponseEntity<Chatroom> displayChatroomById(@PathVariable Long id){
-        return new ResponseEntity<>(chatroomService.getChatroomById(id), HttpStatus.OK);
+        try {
+            return new ResponseEntity<>(chatroomService.getChatroomById(id), HttpStatus.OK);
+        } catch (NoSuchElementException e){
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
     }
+
 
     // EDIT:
     @GetMapping(value = "/{chatroomId}/edit")
@@ -49,6 +58,7 @@ public class ChatroomController {
 
 
     //    CREATE
+
     @PostMapping
     public ResponseEntity<Chatroom> createChatroom(@RequestBody Chatroom chatroom){
         return new ResponseEntity<>(chatroomService.createChatroom(chatroom), HttpStatus.OK);
@@ -56,29 +66,31 @@ public class ChatroomController {
 
 //    DELETE
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<List<Chatroom>> deleteChatroom(@PathVariable Long id){
-        if (chatroomService.deleteChatroom(id) == null){
+    public ResponseEntity<Long> deleteChatroom(@PathVariable Long id){
+        try {
+            chatroomService.deleteChatroom(id);
+            return new ResponseEntity<>(id, HttpStatus.OK);
+        } catch (NoSuchElementException e){
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
-        } else {
-            return new ResponseEntity<>(chatroomService.deleteChatroom(id), HttpStatus.OK);
         }
     }
 
+
 // UPDATE
-    @PatchMapping(value = "/addUser/{id}")
-    public ResponseEntity<List<User>> addUserToChatroom(@PathVariable Long id, @RequestBody Long userId){
-        if (chatroomService.addUserToChatroom(userId, id) == null){
+    @PatchMapping(value = "/{chatroomId}/users/{userId}/add")
+    public ResponseEntity<List<User>> addUserToChatroom(@PathVariable Long chatroomId, @PathVariable Long userId){
+        if (chatroomService.addUserToChatroom(userId, chatroomId) == null){
             return new ResponseEntity<>(null, HttpStatus.ALREADY_REPORTED);
         } else {
-            return new ResponseEntity<>(chatroomService.addUserToChatroom(userId, id), HttpStatus.OK);
+            return new ResponseEntity<>(chatroomService.addUserToChatroom(userId, chatroomId), HttpStatus.OK);
         }
     }
 
 //    UPDATE
-    @PatchMapping(value = "/removeUser/{id}")
-    public ResponseEntity<List<User>> removeUserFromChatroom(@PathVariable Long id, @RequestBody Long userId){
+    @PatchMapping(value = "/{chatroomId}/users/{userId}/remove")
+    public ResponseEntity<List<User>> removeUserFromChatroom(@PathVariable Long chatroomId, @PathVariable Long userId){
         try {
-            return new ResponseEntity<>(chatroomService.removeUserFromChatroom(userId, id), HttpStatus.OK);
+            return new ResponseEntity<>(chatroomService.removeUserFromChatroom(userId, chatroomId), HttpStatus.OK);
         } catch(NullPointerException e){
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }

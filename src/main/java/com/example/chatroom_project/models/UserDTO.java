@@ -1,4 +1,4 @@
-package com.example.chatroom_project.dtos;
+package com.example.chatroom_project.models;
 
 import org.springframework.beans.factory.annotation.Autowired;
 

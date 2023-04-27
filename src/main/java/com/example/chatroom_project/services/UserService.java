@@ -1,16 +1,18 @@
 package com.example.chatroom_project.services;
 
-import com.example.chatroom_project.dtos.UserDTO;
+import com.example.chatroom_project.models.UserDTO;
 import com.example.chatroom_project.models.*;
 import com.example.chatroom_project.repositories.ChatroomRepository;
 import com.example.chatroom_project.repositories.MessageRepository;
 import com.example.chatroom_project.repositories.PermitRepository;
 import com.example.chatroom_project.repositories.UserRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Transactional
 @Service
 public class UserService {
 
@@ -43,6 +45,11 @@ public class UserService {
     }
 
     public void deleteUser(Long id) {
+        User user = userRepository.findById(id).get();
+        for (Chatroom chatroom : user.getChatrooms()){
+            chatroom.removeUser(user);
+        }
+        permitRepository.deleteByUserId(id);
         userRepository.deleteById(id);
     }
 
@@ -58,12 +65,6 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public Message sendMessage(String inputMessage, Long userId, Long chatroomId) {
-        User user = userRepository.findById(userId).get();
-        Chatroom chatroom = chatroomRepository.findById(chatroomId).get();
-        Message message = new Message(inputMessage, user, chatroom);
-        return messageRepository.save(message);
-    }
     public List<Chatroom> displayChatroomsByUserId(Long id){
         User user = userRepository.findById(id).get();
         return user.getChatrooms();

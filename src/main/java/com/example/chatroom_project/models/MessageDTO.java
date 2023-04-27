@@ -1,4 +1,4 @@
-package com.example.chatroom_project.dtos;
+package com.example.chatroom_project.models;
 
 import java.time.LocalTime;
 
@@ -13,7 +13,7 @@ public class MessageDTO {
 
 //    CONSTRUCTOR
 
-    public MessageDTO(String message, Long chatroomId, Long userId){
+    public MessageDTO(String message, Long userId, Long chatroomId){
         this.message = message;
         this.time = LocalTime.now();
         this.chatroomId = chatroomId;

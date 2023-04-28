@@ -44,12 +44,11 @@ spring.jpa.properties.hibernate.enable_lazy_load_no_trans=true
 
 
 ## Diagrams:
-### UML Diagram:
-![](/Users/nasthasia/bnta_work/week_06/UML diagram.png)
-### ERD Diagram
-<img src="/Users/nasthasia/bnta_work/week_06/ERD diagram.png"/>
 
+### UML Diagram:
 <img src="https://user-images.githubusercontent.com/128322371/235096329-498c6d85-d883-4757-959a-8bf730f93f51.png">
+
+### ERD Diagram:
 <img src="https://user-images.githubusercontent.com/128322371/235096587-3ac99479-1f42-4a8e-ab6a-861706d777cf.png">
 
 

@@ -1,11 +1,9 @@
 package com.example.chatroom_project.services;
 
-import com.example.chatroom_project.models.Chatroom;
-import com.example.chatroom_project.models.Message;
-import com.example.chatroom_project.models.MessageDTO;
-import com.example.chatroom_project.models.User;
+import com.example.chatroom_project.models.*;
 import com.example.chatroom_project.repositories.ChatroomRepository;
 import com.example.chatroom_project.repositories.MessageRepository;
+import com.example.chatroom_project.repositories.PermitRepository;
 import com.example.chatroom_project.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,12 +22,20 @@ public class MessageService {
     @Autowired
     ChatroomRepository chatroomRepository;
 
+    @Autowired
+    PermitRepository permitRepository;
+
     public Message sendMessage(MessageDTO messageDTO) {
         String inputMessage = messageDTO.getMessage();
         User user = userRepository.findById(messageDTO.getUserId()).get();
         Chatroom chatroom = chatroomRepository.findById(messageDTO.getChatroomId()).get();
-        Message message = new Message(inputMessage, user, chatroom);
-        return messageRepository.save(message);
+        Permit permit = permitRepository.findByUserIdAndChatroomId(user.getId(),chatroom.getId());
+        if (permit.getPermit()) {
+            Message message = new Message(inputMessage, user, chatroom);
+            return messageRepository.save(message);
+        } else {
+            return null;
+        }
     }
 
     public void deleteMessage(Long id){
